@@ -1,0 +1,75 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>System przydzielania pasażerów do lotów</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+<body>
+    <h1>
+        System przydzielania pasażerów do lotów
+    </h1>
+    <nav>
+        <a href="{% url 'admin:index' %}" id="login">
+            {% if user.is_authenticated %}
+            Panel użytkownika
+            {% else %}
+            Zaloguj się
+            {% endif %}
+        </a>
+        <a href="{% static 'crews.html' %}" id="edit-crews">Edycja załóg</a>
+    </nav>
+    <section>
+        <h2>
+            Filtrowanie lotów
+        </h2>
+        <p>
+            Jeśli chcesz zobaczyć tylko loty o określonych godzinach, podaj odpowiednie terminy.
+            Datę podaj w formacie YYYY-MM-DD, godzinę w formacie HH:MM. Jeśli podasz datę,
+            godzina również jest obowiązkowa.
+        </p>
+        <form method="GET">
+            <ul>
+                {{ filterByData.as_ul }}
+                <li><input type="submit" value="Flitruj"></li>
+            </ul>
+        </form>
+    </section>
+    <section>
+        <h2>
+            Lista lotów
+        </h2>
+        {% if flights %}
+            <table>
+            <tr>
+                <th>Lotnisko startowe</th>
+                <th>Lotnisko docelowe</th>
+                <th>Samolot</th>
+                <th>Czas odlotu</th>
+                <th>Czas przylotu</th>
+                <th>Miejsca</th>
+                <th>Strona lotu</th>
+            </tr>
+            {% for flight in flights %}
+            <tr>
+                <td>{{ flight.departureAirport_id }}</td>
+                <td>{{ flight.arrivalAirport_id }}</td>
+                <td>{{ flight.plane.name }}</td>
+                <td>{{ flight.departureDate }}</td>
+                <td>{{ flight.arrivalDate }}</td>
+                <td>{{ bookings_dict|get_item:flight.id }}/{{ flight.plane.capacity }}</td>
+                <td><a href="/flight/{{ flight.id }}/" id="flight{{ flight.id }}">Strona lotu</a></td>
+            </tr>
+            {% endfor %}
+            </table>
+        {% else %}
+            <p>Brak lotów!</p>
+        {% endif %}
+    </section>
+    <footer>
+        &copy; 2018 Aleksander Wiącek (Aplikacje WWW)
+    </footer>
+</body>
+</html>

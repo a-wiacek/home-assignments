@@ -1,0 +1,55 @@
+To preserve consistency, I changed first line of csv file. I removed
+second names of candidates and changed thier surnames to lowercase
+(except for first letter).
+
+Data column names:
+0 - Województwo
+1 - Nr okręgu
+2 - Kod gminy
+3 - Gmina
+4 - Powiat
+5 - Obwody
+6 - Uprawnieni
+7 - Karty wydane
+8 - Głosy oddane
+9 - Głosy nieważne
+10 - Głosy ważne
+11 - Dariusz Grabowski
+12 - Piotr Ikonowicz
+13 - Jarosław Kalinowski
+14 - Janusz Korwin-Mikke
+15 - Marian Krzaklewski
+16 - Aleksander Kwaśniewski
+17 - Andrzej Lepper
+18 - Jan Łopuszański
+19 - Andrzej Olechowski
+20 - Bogdan Pawłowski
+21 - Lech Wałęsa
+22 - Tadeusz Wilecki
+
+Voivodeship data:
+voivodeship - name
+results[?][3] - name, votes, percentage (this is also data for chart.js)
+turnout[6] - eligible voters, given vote cards, pulled out vote cards,
+             valid votes, invalid votes, turnout rate
+districts[?][2] - name, number
+
+District data:
+district[2] - name, number
+results[?][3] - name, votes, percentage (this is also data for chart.js)
+turnout[6] - eligible voters, given vote cards, pulled out vote cards,
+             valid votes, invalid votes, turnout rate
+powiaty[?] - name
+
+Powiat data:
+powiat - name
+results[?][3] - name, votes, percentage (this is also data for chart.js)
+turnout[6] - eligible voters, given vote cards, pulled out vote cards,
+             valid votes, invalid votes, turnout rate
+gminy[?][2] - number, name
+
+Gmina data:
+gmina - name
+results[?][3] - name, votes, percentage (this is also data for chart.js)
+turnout[6] - eligible voters, given vote cards, pulled out vote cards,
+             valid votes, invalid votes, turnout rate

@@ -1,0 +1,101 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Strona lotu</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+<body>
+    <h1>
+        Strona lotu
+    </h1>
+    <nav>
+        <a href="/">Powrót do strony głównej</a>
+        <a href="{% static 'crews.html' %}">Edycja załóg</a>
+    </nav>
+    {% if status == 'ok' or status == 'err' %}
+    <section>
+        <h3>
+            Potwierdzenie rezerwacji
+        </h3>
+        <p>
+            {% if status == 'ok' %}
+                Pomyślnie zarezerwowano miejsca.
+            {% elif status == 'err' %}
+                Brak miejsc!
+            {% endif %}
+        </p>
+    </section>
+    {% endif %}
+    <section>
+        <h2>
+            Informacje o locie
+        </h2>
+        <ul>
+            <li>
+                Z: {{ flight.departureAirport }}
+            </li>
+            <li>
+                Data odlotu: {{ flight.departureDate }}
+            </li>
+            <li>
+                Do: {{ flight.arrivalAirport }}
+            </li>
+            <li>
+                Data przylotu: {{ flight.arrivalDate }}
+            </li>
+            <li>
+                Pojemność samolotu: {{ flight.plane.capacity }}
+            </li>
+        </ul>
+    </section>
+    <section>
+        <h2>
+            Dokonane rezerwacje
+        </h2>
+        {% if passengers.all %}
+            <table>
+            <tr>
+                <th>Osoba</th>
+                <th>Zakupione bilety</th>
+            </tr>
+            {% for passenger in passengers %}
+            <tr>
+                <td>{{ passenger.person.name }}</td>
+                <td>{{ passenger.tickets }}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <th>W sumie:</th>
+                <td>{{ passengersCount }}</td>
+            </tr>
+            </table>
+        {% else %}
+            <p>Brak pasażerów!</p>
+        {% endif %}
+    </section>
+    <section id="form">
+        <h2>
+            Dopisywanie pasażerów na lot
+        </h2>
+        {% if date_now > flight.departureDate %}
+            <p>Lot już trwa bądź się odbył, nie można wykonać operacji.</p>
+        {% elif addBookingForm %}
+            <form method="POST">
+                {% csrf_token %}
+                <ul>
+                    {{ addBookingForm.as_ul }}
+                    <li><input id="id_confirm" type="submit" value="Dodaj rezerwację"></li>
+                </ul>
+            </form>
+        {% else %}
+            <p>Zaloguj się, aby skorzystać z tej możliwości.</p>
+        {% endif %}
+    </section>
+    <footer>
+        &copy; 2018 Aleksander Wiącek (Aplikacje WWW)
+    </footer>
+</body>
+</html>

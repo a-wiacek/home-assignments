@@ -1,0 +1,4 @@
+#login-info > :not(:first-child) {
+    background-color: yellowgreen;
+    padding: 1em;
+}

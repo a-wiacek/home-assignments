@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Wyniki wyborów Prezydenta Rzeczypospolitej Polskiej 2000</title>
+        <link rel="stylesheet" type="text/css" href="../../../../style.css">
+        <script src="https://www.gstatic.com/charts/loader.js"></script>
+        <script src="chart.js"></script>
+    </head>
+    <body>
+        <header>
+            <h1>Wyniki wyborów Prezydenta Rzeczypospolitej Polskiej 2000</h1>
+            <h2>Gmina {{ gmina[1] }}</h2>
+        </header>
+        <nav>
+            <a href="../index.html">Strona powiatu</a>
+            <a href="../../index.html">Strona okręgu</a>
+            <a href="../../../index.html">Strona województwa</a>
+            <a href="../../../../index.html">Strona kraju</a>
+        </nav>
+        <section id="results">
+            <h3>
+                Wyniki zbiorcze
+            </h3>
+            <table>
+                <tr>
+                    <th>Kandydat</th>
+                    <th>Otrzymane głosy</th>
+                    <th>Procent wszystkich głosów</th>
+                </tr>
+                {% for x in results %}
+                <tr>
+                    <td>{{ x[0] }}</td>
+                    <td>{{ x[1] }}</td>
+                    <td>{{ x[2] }}%</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <figure id="piechart"></figure>
+        </section>
+        <section id="turnout">
+            <h3>
+                Frekwencja
+            </h3>
+            <table>
+                <tr>
+                    <th colspan="2">Frekwencja</th>
+                </tr>
+                <tr>
+                    <td>Osoby uprawnione do głosowania</td>
+                    <td>{{ turnout[0] }}</td>
+                </tr>
+                <tr>
+                    <td>Wydane karty do głosowania</td>
+                    <td>{{ turnout[1] }}</td>
+                </tr>
+                <tr>
+                    <td>Karty do głosowania wyciągnięte z urn</td>
+                    <td>{{ turnout[2] }}</td>
+                </tr>
+                <tr>
+                    <td>Głosy nieważne</td>
+                    <td>{{ turnout[3] }}</td>
+                </tr>
+                <tr>
+                    <td>Głosy ważne</td>
+                    <td>{{ turnout[4] }}</td>
+                </tr>
+                <tr>
+                    <td>Frekwencja</td>
+                    <td>{{ turnout[5] }}%</td>
+                </tr>
+            </table>
+        </section>
+        <footer>
+            &copy; 2018 Aleksander Wiącek (Aplikacje WWW)
+        </footer>
+    </body>
+</html>

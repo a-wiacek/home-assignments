@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edycja załóg</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="crews.css">
+    <link rel="stylesheet" type="text/css" href="multi-select.css" media="screen">
+    <script src="jquery.js"></script>
+    <script src="jquery.multi-select.js"></script>
+    <script src="crews.js"></script>
+</head>
+<body>
+    <h1>
+        Edycja załóg
+    </h1>
+    <nav>
+        <a href="/">Powrót do strony głównej</a>
+    </nav>
+    <section id="login-info">
+        <h3>
+            Logowanie
+        </h3>
+        <div class="logged-true">
+            Zalogowany jako <span id="username">username</span>.
+            <button id="logout-button">Wyloguj</button>
+        </div>
+        <div class="logged-false">
+            <input type="text" id="input-username" placeholder="Login">
+            <input type="password" id="input-password" placeholder="Hasło">
+            <button id="login-button">Login</button>
+        </div>
+    </section>
+    <section id="display-crews">
+        <h3>
+            Wyświetlanie załóg
+        </h3>
+        <p>
+            <label for="select-date">Loty z którego dnia chcesz oglądać?</label>
+            <input id="select-date" type="date">
+        </p>
+        <p id="no-flights-info">
+            Nie znaleziono lotów w danym dniu!
+        </p>
+        <table id="flights-info">
+            <tr>
+                <th>Lotnisko startowe</th>
+                <th>Lotnisko docelowe</th>
+                <th>Samolot</th>
+                <th>Czas odlotu</th>
+                <th>Czas przylotu</th>
+                <th>Kapitan</th>
+            </tr>
+        </table>
+    </section>
+    <section id="edit-crews">
+        <h3>
+            Edycja załóg
+        </h3>
+        <div class="logged-true">
+            <p>
+                Wybierz kapitana:
+                <select id="select-captain"></select>
+            </p>
+            <p>
+                <select id="select-members" multiple="multiple"></select>
+            </p>
+        </div>
+        <div class="logged-false">
+            <p>
+                Zaloguj się, aby móc skorzystać z edycji załóg.
+            </p>
+        </div>
+    </section>
+    <footer>
+        &copy; 2018 Aleksander Wiącek (Aplikacje WWW)
+    </footer>
+</body>
+</html>

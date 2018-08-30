@@ -1,0 +1,82 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    background: lightblue;
+    margin: 0;
+    padding: 0.5em;
+    text-align: center;
+    font-size: 36px;
+}
+
+h2 {
+    background: yellowgreen;
+    margin: 0;
+    padding: 0.1em;
+    text-align: center;
+    font-size: 28px;
+}
+
+h3 {
+    text-align: center;
+    width: 100%;
+    background-color: peru;
+    margin: 0;
+    font-size: 28px;
+}
+
+p {
+    margin: 1em;
+    font-size: 20px;
+}
+
+footer {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: indianred;
+    text-align: right;
+}
+
+@media all and (min-height: 500px) {
+    footer {
+        position: fixed;
+    }
+    body {
+        margin: 0 0 2em 0;
+    }
+}
+
+nav {
+    font-size: 18px;
+    display: flex;
+    flex-flow: row wrap;
+    background-color: black;
+}
+
+nav > a {
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+}
+
+nav > a:hover {
+    background-color: darkred;
+}
+
+table {
+    border-collapse: collapse;
+    background-color: lightpink;
+}
+
+table, th, td {
+    margin: 1em;
+    text-align: center;
+    border: 2px solid darkred;
+}
+
+ul {
+    list-style: none;
+}
