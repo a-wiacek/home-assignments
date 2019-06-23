@@ -91,7 +91,6 @@ Scope of variables
 Each curly bracket has its own scope.
 
 ```
-// Zmienna globalna
 Integer n = 10;
 
 function f :: () -> ()
