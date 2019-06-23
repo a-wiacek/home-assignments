@@ -1,0 +1,67 @@
+Prog.           Prog ::= [Decl] "main" StmtBlock;
+FuncDecl.       Decl ::= "function" PIdent "::" "(" [FuncArg] ")" "->" ExpType "(" [PIdent] ")" StmtBlock;
+VarDecl.        Decl ::= VarType PIdent "=" Exp ";";
+StaticVarDecl.  Decl ::= "static" VarType PIdent "=" Exp ";";
+terminator Decl "";
+separator FuncArg ",";
+separator PIdent ",";
+
+IntegerType.    VarType ::= "Integer";
+DoubleType.     VarType ::= "Double";
+StringType.     VarType ::= "String";
+BoolType.       VarType ::= "Bool";
+ExpType.        ExpType ::= VarType;
+VoidType.       ExpType ::= "(" ")";
+FuncArgVal.     FuncArg ::= "val" VarType;
+FuncArgRef.     FuncArg ::= "ref" VarType;
+
+OpLess.         OpComp ::= "<";
+OpLeq.          OpComp ::= "<=";
+OpGreater.      OpComp ::= ">";
+OpGeq.          OpComp ::= ">=";
+
+EVar.           Exp8 ::= PIdent;
+ECall.          Exp8 ::= PIdent "(" [Exp] ")";
+EInteger.       Exp8 ::= Integer;
+EDouble.        Exp8 ::= Double;
+EString.        Exp8 ::= String;
+ETrue.          Exp8 ::= "True";
+EFalse.         Exp8 ::= "False";
+ENegate.        Exp7 ::= "-" Exp7;
+EMod.           Exp6 ::= Exp6 "%" Exp7;
+EMul.           Exp5 ::= Exp5 "*" Exp6;
+EDiv.           Exp5 ::= Exp5 "/" Exp6;
+EAdd.           Exp4 ::= Exp4 "+" Exp5;
+ESub.           Exp4 ::= Exp4 "-" Exp5;
+EComp.          Exp3 ::= Exp3 OpComp Exp4;
+EEq.            Exp2 ::= Exp2 "==" Exp3;
+ENeq.           Exp2 ::= Exp2 "!=" Exp3;
+EOr.            Exp1 ::= Exp1 "||" Exp2;
+EAnd.           Exp1 ::= Exp1 "&&" Exp2;
+coercions Exp 8;
+separator Exp ",";
+
+StmtBlock.      StmtBlock ::= "{" [Stmt] "}";
+SDecl.          Stmt ::= Decl;
+SExp.           Stmt ::= Exp ";";
+SBlock.         Stmt ::= StmtBlock;
+SAssign.        Stmt ::= PIdent "=" Exp ";";
+SIf.            Stmt ::= "if" "(" Exp ")" "then" StmtBlock;
+SIfte.          Stmt ::= "if" "(" Exp ")" "then" StmtBlock "else" StmtBlock;
+SWhile.         Stmt ::= "while" "(" Exp ")" "do" StmtBlock;
+SBreak.         Stmt ::= "break" ";";
+SContinue.      Stmt ::= "continue" ";";
+StmtRet.        Stmt ::= "return" Exp ";";
+StmtRetV.       Stmt ::= "return" ";";
+STry.           Stmt ::= "try" StmtBlock [SCatch];
+SThrow.         Stmt ::= "throw" PIdent ";";
+SCatch.         SCatch ::= "catch" PIdent StmtBlock;
+separator nonempty SCatch "";
+terminator Stmt "";
+
+position token PIdent (letter (letter|digit|'_'|'\'')*) ;
+
+comment         "//";
+comment         "/*" "*/";
+
+entrypoints     Prog;

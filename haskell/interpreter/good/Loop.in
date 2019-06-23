@@ -1,0 +1,10 @@
+main {
+    Integer n = 10;
+    while (n > 0) do {
+        n = n - 1;
+        if (n == 7) then {continue;}
+        printInteger(n);
+        if (n == 4) then {break;}
+    }
+    printString("It is done!");
+}

@@ -1,0 +1,1 @@
+Program `eigenvalues.py` finds given amount of eigenpairs with largest and pairwise different modules. It can compute eigenvalues for matrix or its inverse. Input is taken from CSV file and will be written to another CSV file. Simple matrix generators are included.

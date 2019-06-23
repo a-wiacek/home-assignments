@@ -1,0 +1,23 @@
+function f :: (val Integer) -> ()
+(n) {
+    if (n > 0)
+    then {
+        printInteger(n);
+        f(n - 2);
+    } else {
+        printString("Should I terminate? YES or sth else");
+        String s = getInput();
+        if (s == "YES")
+        then {
+            printString("Bye!");
+            return;
+        } else {
+            printString("Let's try again...");
+            f(4);
+        }
+    }
+}
+
+main {
+    f(5);
+}

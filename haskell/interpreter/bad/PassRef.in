@@ -1,0 +1,8 @@
+function f :: (ref Integer) -> ()
+(n) {
+    n = n + 2;
+}
+
+main {
+    f(4);
+}

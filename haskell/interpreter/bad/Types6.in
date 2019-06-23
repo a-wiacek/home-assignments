@@ -1,0 +1,8 @@
+function f :: () -> ()
+() {
+    return 21;
+}
+
+main {
+    f();
+}

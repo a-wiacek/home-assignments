@@ -1,0 +1,4 @@
+function f :: () -> () () {}
+Integer n = f();
+
+main {}

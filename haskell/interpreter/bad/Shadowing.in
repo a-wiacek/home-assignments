@@ -1,0 +1,6 @@
+function f :: () -> () () {}
+
+main {
+    Integer f = 10;
+    f();
+}

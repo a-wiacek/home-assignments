@@ -1,0 +1,10 @@
+function f :: (ref Integer) -> ()
+(f) { // Inside body of this function, argument of function shadows its name.
+    f = f + 1;
+}
+
+main {
+    Integer n = 10;
+    f(n);
+    printInteger(n); // 11
+}

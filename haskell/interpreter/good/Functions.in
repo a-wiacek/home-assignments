@@ -1,0 +1,45 @@
+function f1 :: (val Integer, val Integer) -> ()
+(n, d) {
+    printInteger(n);
+    n = n - d;
+    printInteger(n);
+}
+
+function f2 :: (ref Integer, val Integer) -> ()
+(n, d) {
+    printInteger(n);
+    n = n - d;
+    return;
+    printInteger(n);  // unreachable
+}
+
+function f3 :: (val Integer, val Integer) -> Integer
+(n, d) {
+    printInteger(n);
+    n = n - d;
+    printInteger(n);
+    return n;
+}
+
+function f4 :: (ref Integer, val Integer) -> Integer
+(n, d) {
+    printInteger(n);
+    n = n - d;
+    return n;
+}
+
+function f5 :: () -> ()
+() {
+    printInteger(2);
+}
+
+main {
+    Integer n = 10;
+    f1(n, 2);  // 10, 8
+    f2(n, 2);  // 10
+    n = f3(n, 2);  // 8, 6
+    Integer k = f4(n, 2);  // 6
+    printInteger(k);  // 4
+    printInteger(n);  // 4
+    f5();  // 2
+}

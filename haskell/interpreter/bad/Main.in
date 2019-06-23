@@ -1,0 +1,3 @@
+main {
+    Integer main = 4;
+}

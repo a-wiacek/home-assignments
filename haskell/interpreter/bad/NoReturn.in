@@ -1,0 +1,6 @@
+function f :: () -> Integer
+() {}
+
+main {
+    printInteger(f());
+}

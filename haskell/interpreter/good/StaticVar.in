@@ -1,0 +1,17 @@
+Integer x = 42;
+
+function f :: () -> ()
+() {
+    // Variable x is initialized only on first call of function.
+    static Double x = 10.0;
+    x = x + 3.0;
+    printDouble(x);
+}
+
+main {
+    printInteger(x); // 42
+    f(); // 13.0
+    f(); // 16.0
+    f(); // 19.0
+    printInteger(x); // 42
+}

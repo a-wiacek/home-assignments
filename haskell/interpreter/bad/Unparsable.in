@@ -1,0 +1,4 @@
+main {
+    Integer n = stringToInteger("a");
+    printInteger(n);
+}

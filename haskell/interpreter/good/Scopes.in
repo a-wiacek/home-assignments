@@ -1,0 +1,41 @@
+Integer n = 10;
+
+function f :: () -> ()
+() {
+    printInteger(n);
+}
+
+main {
+    printInteger(n);  // 10
+    Integer n = 8;
+    printInteger(n);  // 8
+    f();  // 10
+    function h :: () -> ()
+    () {
+        Integer n = 6;
+        printInteger(n);  // 6
+        function g :: () -> ()
+        () {
+            printInteger(n);
+        }
+        g();  // 6
+        n = 4;
+        f();  // 10
+        g();  // 4
+        printInteger(n);  // 4
+        Integer n = 2;
+        f();  // 10
+        g();  // 4
+        printInteger(n);  // 2
+        { // Scope
+            printInteger(n); // 2
+            Integer n = 0;
+            printInteger(n); // 0
+            f(); // 10
+            g(); // 4
+        }
+    }
+    h();
+    f();  // 10
+    printInteger(n);  // 8
+}

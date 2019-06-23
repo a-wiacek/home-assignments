@@ -1,0 +1,22 @@
+function f :: () -> ()
+() {
+    throw MyException;
+}
+
+// None of X will print
+main {
+    try {
+        Integer n = 4 / 0;
+        printString("X");
+    } catch DivByZeroIntegerException {
+        printString("A");
+    }
+    try {
+        f();
+        printString("X");
+    } catch MyException {
+        printString("B");
+    } catch DivByZeroIntegerException {
+        printString("X");
+    }
+}

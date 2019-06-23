@@ -1,0 +1,3 @@
+main {
+    Integer a = 4 / 0;
+}

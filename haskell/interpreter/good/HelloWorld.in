@@ -1,0 +1,5 @@
+main {
+    printString("What is your name?");
+    String name = getInput();
+    printString("Hello, " + name + "!");
+}

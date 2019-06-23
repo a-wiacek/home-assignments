@@ -1,0 +1,12 @@
+main {
+    Integer n = 3 * (4 + 5) / 6;
+    printInteger(n);
+    n = 2 - 3 - 4;
+    printInteger(n);
+    n = 2 + 2 * 2;
+    printInteger(n);
+    n = 2 * 2 + 2;
+    printInteger(n);
+    n = 7 % 4 + 3;
+    printInteger(n);
+}

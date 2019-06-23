@@ -1,0 +1,10 @@
+main {
+    Integer a = -(49 - 7);
+    String s = "6.0";
+    Double b = stringToDouble(s);
+    Integer n = a / stringToInteger(doubleToString(b));
+    Double x = stringToDouble(integerToString(a)) / b;
+    printString(s + integerToString(a));  // 6.0-42
+    printInteger(n);  // -7 
+    printDouble(b);  // 6.0
+}

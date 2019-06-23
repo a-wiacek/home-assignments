@@ -1,0 +1,8 @@
+function f :: (val Integer, val Integer) -> ()
+(n, n) {
+    printInteger(n);
+}
+
+main {
+    f(2, 3);
+}

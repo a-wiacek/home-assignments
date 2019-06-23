@@ -1,0 +1,8 @@
+main {
+    Bool q = 2 > 3;
+    Bool r = True;
+    if (-q && r)
+    then {
+        printString("ZXCV");
+    }
+}

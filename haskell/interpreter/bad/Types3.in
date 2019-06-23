@@ -1,0 +1,6 @@
+function f :: () -> Integer
+() {
+    return 11.5;
+}
+
+main {}
