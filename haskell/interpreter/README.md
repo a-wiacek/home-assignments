@@ -12,7 +12,7 @@ main {
 }
 ```
 
-Program is list of declarations. The last one is formed as above (main {...}). Function `getInput` takes one line from stdin and returns variable of type `String`. Function `printString` writes string to stdout.
+Program is list of declarations. The last one is formed as above (`main {...}`). Function `getInput` takes one line from stdin and returns variable of type `String`. Function `printString` writes string to stdout.
 
 Variables
 ---------
@@ -138,7 +138,7 @@ Control flow
 ------------
 * `if (condition) then {instructions}`
 * `if (condition) then {instructions} else {instructions}`
-* `while (condition) do {instructions}` with `break` i `continue` allowed inside `do` block
+* `while (condition) do {instructions}` with `break` and `continue` allowed inside `do` block
 
 Static variables
 ----------------
@@ -202,8 +202,11 @@ Compiling
 =========
 
 Required: `bnfc, happy, alex`
+
 Build: `make` (from main directory, not `src`)
+
 Clean: `make clean`
+
 Run: `./interpreter "filepath"`
-Interpreter doesn't have REPL mode.
-Example programs are in directories `good` and `bad`.
+
+Interpreter doesn't have REPL mode. Example programs are in directories `good` and `bad`.
