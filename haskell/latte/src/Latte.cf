@@ -1,0 +1,88 @@
+-- bnfc --functor Latte.cf
+entrypoints     Program;
+Program.        Program ::= [TopDef];
+separator nonempty TopDef "";
+TopFunDef.      TopDef ::= FunDef;
+BaseClassDef.   TopDef ::= "class" Ident "{" [ClassMember] "}";
+ExtClassDef.    TopDef ::= "class" Ident "extends" Ident "{" [ClassMember] "}";
+
+FunDef.         FunDef ::= Type Ident "(" [Arg] ")" Block;
+separator Arg ",";
+Arg.            Arg ::= Type Ident;
+
+
+ClassFieldDef.  ClassMember ::= Type [Ident] ";";
+separator nonempty Ident ",";
+ClassMethodDef. ClassMember ::= FunDef;
+separator ClassMember "";
+
+IntType.        Type ::= "int";
+StringType.     Type ::= "string";
+BoolType.       Type ::= "boolean";
+VoidType.       Type ::= "void";
+ClassType.      Type ::= Ident;
+ArrayType.      Type ::= Type "[]";
+
+StmtBlock.      Block ::= "{" [Stmt] "}";
+separator Stmt "";
+SEmpty.         Stmt ::= ";";
+SBlock.         Stmt ::= Block;
+SDecl.          Stmt ::= Decl;
+VarDecl.        Decl ::= Type [DeclItem] ";";
+DeclNoInit.     DeclItem ::= Ident;
+DeclWithInit.   DeclItem ::= Ident "=" Exp;
+separator nonempty DeclItem ",";
+SAssign.        Stmt ::= LVal "=" Exp ";";
+SIncr.          Stmt ::= LVal "++" ";";
+SDecr.          Stmt ::= LVal "--" ";";
+SRet.           Stmt ::= "return" Exp ";";
+SRetVoid.       Stmt ::= "return" ";";
+SIf.            Stmt ::= "if" "(" Exp ")" Stmt;
+SIfte.          Stmt ::= "if" "(" Exp ")" Stmt "else" Stmt;
+SWhile.         Stmt ::= "while" "(" Exp ")" Stmt;
+SFor.           Stmt ::= "for" "(" Type Ident ":" Exp ")" Stmt;
+SExp.           Stmt ::= Exp ";";
+
+LValSelf.       LVal ::= "self";
+LValVar.        LVal ::= Ident;
+LValAttr.       LVal ::= LVal "." Ident;
+LValCall.       LVal ::= Call;
+LValMethod.     LVal ::= LVal "." Call;
+LValArrAccess.  LVal ::= LVal "[" Exp "]";
+
+FunCall.        Call ::= Ident "(" [Exp] ")";
+ENullObj.       Exp6 ::= "(" Ident ")null";
+ELVal.          Exp6 ::= LVal;
+ENewObj.        Exp6 ::= "new" Ident;
+ENewArr.        Exp6 ::= "new" Type "[" Exp "]";
+EConstant.      Exp6 ::= Constant;
+ENegate.        Exp5 ::= OpUnary Exp6;
+EMod.           Exp4 ::= Exp4 OpMul Exp5;
+EAdd.           Exp3 ::= Exp3 OpAdd Exp4;
+EComp.          Exp2 ::= Exp2 OpComp Exp3;
+EAnd.           Exp1 ::= Exp2 "&&" Exp1;
+EOr.            Exp ::= Exp1 "||" Exp;
+coercions Exp 6;
+separator Exp ",";
+
+CInteger.       Constant ::= Integer;
+CString.        Constant ::= String;
+CTrue.          Constant ::= "true";
+CFalse.         Constant ::= "false";
+OpNegate.       OpUnary ::= "-";
+OpNot.          OpUnary ::= "!";
+OpTimes.        OpMul ::= "*";
+OpDiv.          OpMul ::= "/";
+OpMod.          OpMul ::= "%";
+OpPlus.         OpAdd ::= "+";
+OpMinus.        OpAdd ::= "-";
+OpLt.           OpComp ::= "<";
+OpLeq.          OpComp ::= "<=";
+OpGt.           OpComp ::= ">";
+OpGeq.          OpComp ::= ">=";
+OpEqual.        OpComp ::= "==";
+OpNeq.          OpComp ::= "!=";
+
+comment         "#";
+comment         "//";
+comment         "/*" "*/";
