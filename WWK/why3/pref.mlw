@@ -1,0 +1,105 @@
+module Pref
+
+  use int.Int
+  use array.Array
+
+  predicate matches (a1: array int) (i1: int)
+                    (a2: array int) (i2: int) (n: int) =
+    0 <= n /\
+    0 <= i1 <= length a1 - n /\
+    0 <= i2 <= length a2 - n /\
+    forall i: int. 0 <= i < n -> a1[i1 + i] = a2[i2 + i]
+
+  lemma matches_right_extension:
+    forall a1 a2: array int, i1 i2 n: int.
+    matches a1 i1 a2 i2 n ->
+    i1 <= length a1 - n - 1 ->
+    i2 <= length a2 - n - 1 ->
+    a1[i1 + n] = a2[i2 + n] ->
+    matches a1 i1 a2 i2 (n + 1)
+
+  (* by Z3 *)
+  lemma matches_simpl: forall a1 a2: array int, i1 i2 n: int. n>0 -> matches a1 i1 a2 i2 n -> a1[i1]=a2[i2]
+
+  (* Przepisałem ten lemat w składni "let lemma", bo
+     chciałem użyć tego lematu dla konkretnych zmiennych *)
+  let lemma matches_right_weakening (a1 a2: array int) (i1 i2 n n': int)
+    requires { matches a1 i1 a2 i2 n }
+    requires { 0 <= n' <= n }
+    ensures { matches a1 i1 a2 i2 n' }
+    = ()
+
+  (* by Z3 after split *)
+  let lemma matches_left_weakening (a1 a2: array int) (i1 i2 n offset: int)
+  requires { matches a1 i1 a2 i2 n }
+  requires { 0 <= offset <= n }
+  ensures { matches a1 (i1+offset) a2 (i2+offset) (n-offset) }
+  =
+  assert { 0 <= n-offset };
+  assert { 0 <= i1+offset <= length a1 - (n-offset) };
+  assert { 0 <= i2+offset <= length a2 - (n-offset) };
+  assert { forall i: int. 0 <= i < (n-offset) -> a1[i1 + i] = a2[i2 + i] };
+  ()
+
+  predicate maxPref (a : array int) (b : array int) (i : int) (n : int) = 
+     matches a 0 b i n /\ not matches a 0 b i (n+1)
+  
+  (* Pozwoliłem sobie zamienić nazwę na angielskie extend *)
+  (* oczywiście ze struktury funkcji wynika, że jej czas działania to ( result - k ) *)
+  let rec function extend (a : array int) (i : int) (k : int) : int
+    requires { matches a 0 a i k }
+    variant { length a - k }
+    ensures { maxPref a a i result }
+  = if i + k < length a && a[k] = a[i + k]
+     then extend a i (k + 1)
+     else k
+
+  (* by Alt-Ergo after split *)
+  let pref (a : array int) : array int =
+    ensures { result.length = a.length }
+    ensures { forall i. 0 < i < a.length -> maxPref a a i result[i] }
+    let r = Array.make a.length 0 in
+    if a.length <= 1 then r else
+    let ref furthestBegin = 1 in
+    let ref furthestEnd = extend a 1 0 in
+    let ghost ref work = furthestEnd in
+    r[1] <- furthestEnd;
+    assert { maxPref a a 1 r[1] };
+    for i = 2 to a.length - 1 do
+      invariant { i > furthestBegin >= 1 }
+      invariant { forall j. 0 < j < i -> maxPref a a j r[j] }
+      invariant { maxPref a a furthestBegin (furthestEnd - furthestBegin + 1) }
+      invariant { work <= furthestEnd }
+      label B in
+      let ii = i - furthestBegin in
+      if i > furthestEnd then begin
+        r[i] <- extend a i 0;
+        furthestBegin <- i;
+        furthestEnd <- i + r[i] - 1;
+        work <- work + r[i];
+        assert { maxPref a a i r[i] };
+      end else if r[ii] < furthestEnd + 1 - i then begin
+        r[i] <- r[ii];
+        assert { matches a 0 a furthestBegin (furthestEnd - furthestBegin + 1) };
+        matches_left_weakening a a 0 furthestBegin (furthestEnd - furthestBegin + 1) ii;
+        assert { matches a ii a i (furthestEnd - i + 1) };
+        assert { maxPref a a i r[i] };
+      end else begin
+        assert { matches a 0 a ii r[ii] };
+        matches_right_weakening a a 0 ii r[ii] (furthestEnd + 1 - i);
+        assert { matches a 0 a ii (furthestEnd + 1 - i) };
+        assert { matches a 0 a furthestBegin (furthestEnd - furthestBegin + 1) };
+        matches_left_weakening a a 0 furthestBegin (furthestEnd - furthestBegin + 1) ii;
+        assert { matches a ii a i (furthestEnd - i + 1) };
+        r[i] <- extend a i (furthestEnd + 1 - i);
+        work <- work + r[i] - (furthestEnd + 1 - i);
+        furthestBegin <- i;
+        furthestEnd <- i + r[i] - 1;
+        assert { maxPref a a i r[i] };
+      end;
+      assert { forall j. 0 < j < i -> (r at B)[j]=r[j] }
+    done;
+    assert { work <= a.length };
+    r
+  
+end

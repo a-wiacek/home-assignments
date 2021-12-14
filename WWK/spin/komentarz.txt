@@ -1,0 +1,21 @@
+Własność 1: TAK.
+Największe parametry, dla jakich dostałem odpowiedź w limicie pamięci 2GB, to (R = 4, N = 3, t = 186 sekund) i (R = 3, N = 8, t = 142 sekund).
+
+Własność 2: TAK.
+Formuła q2 zadaje pytanie odwrotne:
+Czy zawsze, jeśli system się zatrzymał, to robotnicy są maksymalnie wyuczeni (mistrzami)?
+Weryfikacja zwraca odpowiedź negatywną, więc odpowiedź na pytanie z treści zadania brzmi TAK.
+
+Własność 3: Jeśli N >= R to TAK, jeśli N < R to NIE.
+
+Własność 4: TAK.
+Formuła q4 zadaje pytanie odwrotne:
+Czy zawsze mistrzów jest mniej niż R?
+Weryfikacja zwraca odpowiedź negatywną, więc odpowiedź na pytanie z treści zadania brzmi TAK.
+
+Własność 5: TAK.
+Formuła q5 zadaje pytanie odwrotne:
+Czy zawsze jest tak, że nikt nigdy nie zgłosił zmiany na łatwiejsze narzędzie?
+Weryfikacja zwraca odpowiedź negatywną, więc odpowiedź na pytanie z treści zadania brzmi TAK.
+
+Własność 6: TAK.

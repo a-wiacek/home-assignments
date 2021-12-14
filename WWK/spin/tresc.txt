@@ -1,0 +1,56 @@
+Wstęp.
+
+Zadanie polega na zamodelowaniu prostego systemu, w którym grupa robotników metodą
+prób i błędów uczy się obsługi mniej lub bardziej skomplikowanych narzędzi, oraz
+sprawdzenie kilku własności modelu.
+
+Opis modelu.
+
+W fabryce pracuje R robotników, którzy mają do dyspozycji N narzędzi ponumerowanych
+od 1 do N. Im niższy numer narzędzia tym trudniejsze jest ono w obsłudze, tzn. jeśli któryś
+z robotników umie obsługiwać narzędzie 3, to umie też obsługiwać narzędzia o wszystkich
+większych numerach. Na początku żaden robotnik nie umie obsługiwać żadnego
+narzędzia.
+Robotnik zgłasza się do magazynu i pobiera z niego najbardziej skomplikowane narzędzie
+jakie jest w nim dostępne, nawet jeśli nie umie go obsługiwać. Wynosi je z magazynu i
+zaczyna go używać, jednak jeżeli później w magazynie pojawi się narzędzie bardziej
+skomplikowane (tj. o niższym numerze) niż to, którego aktuanie używa, to robotnik zwraca
+aktualnie używane narzędzie i wymienia je na to bardziej skomplikowane.
+Jeżeli robotnik nie umie obsługiwać przydzielonego mu narzędzia, to może je zepsuć.
+Zepsute narzędzie musi natychmiast oddać do magazynu (tam natychmiast zostaje ono
+naprawione i od nowa udostępnione robotnikom). Robotnik, który zepsuł narzędzie,
+zostaje bez narzędzia i musi pobrać nowe z magazynu.
+Robotnicy uczą się na własnych błędach: każde zepsute narzędzie zwiększa ich
+umiejętności o obsługę jednego narzędzia. Na przykład: jeśli robotnik, który umie
+obsługiwać narzędzie 7 (ale już nie narzędzie 6) zepsuje narzędzie 3, to uczy się przy tym
+obsługi narzędzia 6 (ale już nie narzędzia 5).
+Powyższy system należy zamodelować tak, aby stałe R i N były jak najłatwiej
+modyfikowalne. Ponadto przy użyciu SPINa należy zweryfikować podane poniżej
+własności. Weryfikację można wykonać przy użyciu dowolnej techniki: formuł LTL, asercji,
+metodą szukania cykli acceptance lub non-progress itp.
+
+Własności do sprawdzenia
+
+1) Czy po skończonej liczbie kroków system musi się zatrzymać (tzn. czy wszyscy
+robotnicy na zawsze pozostaną przy aktualnie używanych narzędziach) ?
+2) Czy może być tak, że system zatrzyma się zanim wszyscy robotnicy nauczą się obsługi
+wszystkich narzędzi?
+3) Czy musi być tak, że każdy robotnik nauczy się obsługi jakiegoś narzędzia? Rozważ
+przypadki N>=R i N<R.
+4) Dla R > N, czy może być tak że każdy robotnik nauczy się obsługi narzędzia 1?
+5) Czy może być tak, że robotnik użyje narzędzia mniej zaawansowanego (tj. o wyższym
+numerze) niż to, którego używał poprzednio?
+6) Czy jeśli narzędzie 1 staje się dostępne, to następnie zostanie pobrane przez jakiegoś
+robotnika?
+Dla jakich maksymalnych wartości N i R udało się przeprowadzić pełną weryfikację
+własności 1) ?
+
+Kwestie techniczne.
+
+Oddajemy (w .zip / .tar):
+
+1) plik .pml z kodem w Promeli.
+
+2) plik .txt z odpowiedziami na pytania.
+
+3) plik(i) .sh / makefile / co kto woli, wywołujące spin z odpowiednimi parametrami, tak by potwierdzić odpowiedzi opisane w pliku .txt. Parametry można wyciągnąć z GUI, należy jednak je zrozumieć. 
